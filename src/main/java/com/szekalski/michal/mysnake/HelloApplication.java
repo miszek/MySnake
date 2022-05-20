@@ -20,6 +20,7 @@ public class HelloApplication extends Application {
         scene.getRoot().requestFocus();
         stage.setTitle("Hello!");
         stage.setScene(scene);
+        stage.setResizable(false);
         stage.show();
     }
 

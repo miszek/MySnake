@@ -11,13 +11,18 @@ import javafx.scene.paint.Color;
 import javafx.scene.paint.Paint;
 
 import java.util.Random;
+import java.util.function.ToDoubleBiFunction;
 
 public class HelloController {
 
+    Point point = new Point(0,0);
+    GraphicsContext graphicsContext;
+
     public void initialize() {
-        GraphicsContext graphicsContext = canvas.getGraphicsContext2D();
+
+        graphicsContext = canvas.getGraphicsContext2D();
         graphicsContext.setFill(Color.BLACK);
-        graphicsContext.fillRect(0,0, 10, 10);
+        graphicsContext.fillRect(point.getPosX(), point.getPosY(), 10, 10);
         canvas.requestFocus();
     }
 
@@ -38,7 +43,45 @@ public class HelloController {
 
     @FXML
     private void onKeyPressedVBox(KeyEvent keyEvent) {
-        System.out.println(keyEvent.getCode().toString());
+                movePoint(keyEvent.getCode().toString());
+//        switch (keyEvent.getCode()) {
+//            case UP:
+//                movePoint("UP");
+//                break;
+//            case DOWN:
+//                movePoint("DOWN");
+//                break;
+//            case RIGHT:
+//                movePoint("RIGHT");
+//                break;
+//            case LEFT:
+//                movePoint("LEFT");
+//
+//        }
+    }
+
+    public void movePoint (String direction) {
+        graphicsContext = canvas.getGraphicsContext2D();
+        graphicsContext.clearRect(0,0,240,320);
+
+        switch (direction) {
+            case "UP":
+                point.setPosY(point.getPosY()-10);
+                break;
+            case "DOWN":
+                point.setPosY(point.getPosY()+10);
+                break;
+            case "RIGHT":
+                point.setPosX(point.getPosX()+10);
+                break;
+            case "LEFT":
+                point.setPosX(point.getPosX()-10);
+                break;
+
+
+        }
+
+        graphicsContext.fillRect(point.getPosX(), point.getPosY(), 10,10);
     }
 
 }
