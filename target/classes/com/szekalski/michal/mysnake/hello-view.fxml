@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.layout.VBox?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.canvas.Canvas?>
+<VBox fx:id="vbox" alignment="CENTER" spacing="20.0" xmlns:fx="http://javafx.com/fxml"
+      fx:controller="com.szekalski.michal.mysnake.HelloController" onKeyPressed="#onKeyPressedVBox">
+    <children>
+        <Pane fx:id="pane" VBox.vgrow="ALWAYS" onKeyPressed="#onKeyPressedPane">
+            <children>
+                <Canvas fx:id="canvas" height="240" width="320" onKeyPressed="#onKeyPressedCanvas"
+                        />
+            </children>
+        </Pane>
+    </children>
+</VBox>
