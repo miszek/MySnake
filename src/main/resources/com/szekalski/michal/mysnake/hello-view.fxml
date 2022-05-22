@@ -19,13 +19,13 @@
             </children>
         </Pane>
     </children>
-    <VBox >
+<!--    <VBox >-->
 
-        <Button fx:id="startButton" text="START" onAction="#startButtonOnAction">
+<!--        <Button fx:id="startButton" text="START" >-->
 
-        </Button>
+<!--        </Button>-->
 <!--        <Label text="High score:" />-->
 <!--        <TableView />-->
 
-    </VBox>
+<!--    </VBox>-->
 </HBox>
