@@ -17,6 +17,7 @@ public class HelloApplication extends Application {
         stage.setScene(scene);
         stage.setResizable(false);
         stage.show();
+        new Thread(new GameLoop()).start();
     }
 
     public static void main(String[] args) {

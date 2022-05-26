@@ -23,6 +23,14 @@ public class HelloController {
     @FXML
     private Pane pane;
 
+    public Snake getSnake() {
+        return snake;
+    }
+
+    public GraphicsContext getGraphicsContext() {
+        return graphicsContext;
+    }
+
     @FXML
     private Canvas canvas;
 
@@ -40,12 +48,19 @@ public class HelloController {
 //        snake.printSnake(canvas);
 //        snake.generateFood();
 
-        for (int i =0; i < 10; i++) {
+        for (int i =0; i < 10; i++) { //temporary loop
             snake.moveSnake();
-            snake.printSnake(canvas, graphicsContext);
+            clearCanvas();
+            snake.printSnake(graphicsContext);
+//            try {
+//                Thread.sleep(1000);
+//            } catch (InterruptedException e) {
+//                e.printStackTrace();
+//            }
+
 //            snake.eat();
         }
-
+        System.out.println("HelloController.initalize invoked");
     }
 
 
@@ -59,16 +74,20 @@ public class HelloController {
         switch (keyEvent.getCode().toString()) {
             case "UP":
                 snake.setDirection(Direction.UP);
+                System.out.println("UP pressed");
             break;
             case "DOWN":
                 snake.setDirection(Direction.DOWN);
-            break;
+                System.out.println("DOWN pressed");
+                break;
             case "LEFT":
                 snake.setDirection(Direction.LEFT);;
-            break;
+                System.out.println("LEFT pressed");
+                break;
             case "RIGHT":
                 snake.setDirection(Direction.RIGHT);
-            break;
+                System.out.println("RIGHT pressed");
+                break;
         }
     }
 
@@ -131,4 +150,11 @@ public class HelloController {
 //    public void startButtonOnAction() {
 //
 //    }
+
+    public void clearCanvas () {
+        graphicsContext = canvas.getGraphicsContext2D();
+        graphicsContext.setFill(Color.BLACK);
+        graphicsContext.fillRect(0, 0, canvas.getWidth(), canvas.getHeight());
+        graphicsContext.setFill(Color.WHITE);
+    }
 }

@@ -28,17 +28,22 @@ public class Snake {
 
     public void moveSnake () {
 
-    }
 
+        for (int i = 0; i < snakeBody.size()-1; i++) {
+            snakeBody.get(i).setPosX(snakeBody.get(i+1).getPosX());
+            snakeBody.get(i).setPosY(snakeBody.get(i+1).getPosY());
+        }
+        snakeBody.get(snakeBody.size()-1).setPosX(snakeBody.get(snakeBody.size()-1).getPosX()+10);
+        snakeBody.get(snakeBody.size()-1).setPosY(snakeBody.get(snakeBody.size()-1).getPosY()+10);
+    }
     public void eat (Point point) {
 
     }
 
-    public void printSnake (Canvas canvas, GraphicsContext graphicsContext) {
-//        Iterator<Point> iterator = snakeBody.listIterator();
-//        while (iterator.hasNext()) {
-            graphicsContext.fillRect(snakeBody.get(0).getPosX(), snakeBody.get(0).getPosY(), 10, 10);
-
+    public void printSnake (GraphicsContext graphicsContext) {
+        for (Point p : snakeBody) {
+            graphicsContext.fillRect(p.getPosX(), p.getPosY(), 10, 10);
+        }
     }
 
     public boolean gameOver () {
