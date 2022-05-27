@@ -7,6 +7,7 @@ import javafx.scene.paint.Color;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
+import java.util.Random;
 
 public class Snake {
 
@@ -59,6 +60,7 @@ public class Snake {
         snakeBody.get(snakeBody.size()-1).setPosX(snakeBody.get(snakeBody.size()-1).getPosX()+x);
         snakeBody.get(snakeBody.size()-1).setPosY(snakeBody.get(snakeBody.size()-1).getPosY()+y);
     }
+
     public void eat (Point point) {
 
     }
@@ -75,8 +77,29 @@ public class Snake {
         return true; //returns true if snake reached canvas borders or crossed itself
     }
 
-    public void generateFood () {
+    public void generateFood (GraphicsContext graphicsContext) {
+        Random random = new Random();
+        Point food;
+        do {
+            food = new Point((random.nextInt((HelloApplication.WINDOW_LENGTH - 10) / 10) * 10) ,
+                    random.nextInt((HelloApplication.WINDOW_WIDTH - 10) / 10) * 10);
 
+        } while (checkCollision(food));
+        graphicsContext.setFill(Color.WHITE);
+        graphicsContext.fillRect(food.getPosX(), food.getPosY(), 10, 10);
     }
 
+    public boolean checkCollision (Point point) {
+        if (snakeBody.contains(point)) {
+            return true;
+        }
+        return false;
+    }
+
+    public void clearSnake (GraphicsContext graphicsContext) {
+        for (Point p : snakeBody) {
+            graphicsContext.setFill(Color.BLACK);
+            graphicsContext.fillRect(p.getPosX(), p.getPosY(), 10, 10);
+        }
+    }
 }

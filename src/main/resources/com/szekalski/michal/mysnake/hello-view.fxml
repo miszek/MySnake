@@ -14,7 +14,7 @@
     <children>
         <Pane fx:id="pane" VBox.vgrow="ALWAYS" >
             <children>
-                <Canvas fx:id="canvas" height="400" width="400"
+                <Canvas fx:id="canvas"
                         />
             </children>
         </Pane>
