@@ -13,11 +13,13 @@ public class Snake {
 
     private Direction direction;
     private List<Point> snakeBody;
+    private Point food;
 
-    public Snake(Direction direction, Point point) {
+    public Snake(Direction direction, Point point, Point point2) {
         this.direction = direction;
         snakeBody = new ArrayList<>();
         snakeBody.add(point);
+        snakeBody.add(point2);
     }
 
     public Direction getDirection() {
@@ -62,7 +64,9 @@ public class Snake {
     }
 
     public void eat (Point point) {
-
+//        if (snakeBody.contains(food)) {
+//            snakeBody.add()
+//        }
     }
 
     public void printSnake (GraphicsContext graphicsContext) {
@@ -79,7 +83,6 @@ public class Snake {
 
     public void generateFood (GraphicsContext graphicsContext) {
         Random random = new Random();
-        Point food;
         do {
             food = new Point((random.nextInt((HelloApplication.WINDOW_LENGTH - 10) / 10) * 10) ,
                     random.nextInt((HelloApplication.WINDOW_WIDTH - 10) / 10) * 10);

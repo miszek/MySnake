@@ -12,7 +12,7 @@ import javafx.scene.paint.Color;
 
 public class HelloController {
 
-    Snake snake = new Snake(Direction.DOWN, new Point(0, 0));
+    Snake snake = new Snake(Direction.DOWN, new Point(10, 10), new Point(10,0));
     GraphicsContext graphicsContext;
 
     @FXML
@@ -38,7 +38,7 @@ public class HelloController {
         graphicsContext.setFill(Color.BLACK);
         graphicsContext.fillRect(0, 0, canvas.getWidth(), canvas.getHeight());
         graphicsContext.setFill(Color.WHITE);
-
+        snake.printSnake(graphicsContext);
     }
 
     @FXML
@@ -97,6 +97,7 @@ public class HelloController {
                     snake.moveSnake();
                 }
                 startButton.setDisable(false);
+                snake.printSnake(graphicsContext);
             }
         };
         new Thread(gameLoop).start();
