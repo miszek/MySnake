@@ -74,6 +74,7 @@ public class HelloController {
                 keyEvent.consume();
                 break;
         }
+        System.out.println("Snake is moving: " + snake.getDirection());
     }
 
     public void buttonOnAction () {
@@ -82,19 +83,22 @@ public class HelloController {
         Runnable gameLoop = new Runnable() {
             @Override
             public void run() {
-                for (int i = 0; i < 100; i++) {
+                snake.generateFood(graphicsContext);
+                for (int i = 0; i < 150; i++) {
 //                    System.out.println("game loop started " + i);
                     startButton.setDisable(true);
 //                    clearCanvas();
                     snake.printSnake(graphicsContext);
-                    snake.generateFood(graphicsContext);
+//                    snake.generateFood(graphicsContext);
                     try {
-                        Thread.sleep(100);
+                        Thread.sleep(70);
                     } catch (InterruptedException e) {
                         e.printStackTrace();
                     }
                     snake.clearSnake(graphicsContext);
-                    snake.moveSnake();
+                    if(snake.moveSnake()) {
+                        snake.generateFood(graphicsContext);
+                    }
                 }
                 startButton.setDisable(false);
                 snake.printSnake(graphicsContext);

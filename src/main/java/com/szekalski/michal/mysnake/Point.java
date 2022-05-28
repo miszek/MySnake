@@ -24,4 +24,19 @@ public class Point {
         this.posX = posX;
         this.posY = posY;
     }
+
+    @Override
+    public boolean equals(Object obj) {
+        Point point1 = (Point) obj;
+
+        if (obj==null) {
+            return false;
+        }
+
+
+        if(point1.getPosX()==posX && point1.getPosY()==posY) {
+            return true;
+        }
+        return false;
+    }
 }

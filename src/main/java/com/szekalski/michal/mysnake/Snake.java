@@ -30,8 +30,8 @@ public class Snake {
         this.direction = direction;
     }
 
-    public void moveSnake () {
-        System.out.println("snake is moving: " + direction);
+    public boolean moveSnake () {
+//        System.out.println("snake is moving: " + direction);
         int x=0;
         int y=0;
 
@@ -54,13 +54,24 @@ public class Snake {
                 break;
         }
 
+        //eating procedure
+        Point nextPoint = new Point(snakeBody.get(snakeBody.size()-1).getPosX()+x,snakeBody.get(snakeBody.size()-1).getPosY()+y);
 
-        for (int i = 0; i < snakeBody.size()-1; i++) {
-            snakeBody.get(i).setPosX(snakeBody.get(i+1).getPosX());
-            snakeBody.get(i).setPosY(snakeBody.get(i+1).getPosY());
+        if (nextPoint.equals(food)) {
+            snakeBody.add(food);
+            System.out.println("Length of the snake is: " + snakeBody.size());
+            return true;
+        } else {
+            for (int i = 0; i < snakeBody.size()-1; i++) {
+                snakeBody.get(i).setPosX(snakeBody.get(i+1).getPosX());
+                snakeBody.get(i).setPosY(snakeBody.get(i+1).getPosY());
+            }
+            snakeBody.get(snakeBody.size()-1).setPosX(snakeBody.get(snakeBody.size()-1).getPosX()+x);
+            snakeBody.get(snakeBody.size()-1).setPosY(snakeBody.get(snakeBody.size()-1).getPosY()+y);
+            return false;
         }
-        snakeBody.get(snakeBody.size()-1).setPosX(snakeBody.get(snakeBody.size()-1).getPosX()+x);
-        snakeBody.get(snakeBody.size()-1).setPosY(snakeBody.get(snakeBody.size()-1).getPosY()+y);
+
+
     }
 
     public void eat (Point point) {
