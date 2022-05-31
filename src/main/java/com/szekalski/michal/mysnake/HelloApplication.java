@@ -9,15 +9,15 @@ import java.io.IOException;
 
 public class HelloApplication extends Application {
 
-    public static final int WINDOW_LENGTH = 300;
-    public static final int WINDOW_WIDTH = 300;
+    public static final int WINDOW_LENGTH = 400;
+    public static final int WINDOW_WIDTH = 400;
 
     @Override
     public void start(Stage stage) throws IOException {
         FXMLLoader fxmlLoader = new FXMLLoader(HelloApplication.class.getResource("hello-view.fxml"));
-        Scene scene = new Scene(fxmlLoader.load(), 700, 500);
+        Scene scene = new Scene(fxmlLoader.load(), WINDOW_WIDTH+200, WINDOW_LENGTH);
         scene.getRoot().requestFocus();
-        stage.setTitle("Hello!");
+        stage.setTitle("MySnake v1.0");
         stage.setScene(scene);
         stage.setResizable(false);
         stage.show();

@@ -38,7 +38,11 @@ public class HelloController {
         graphicsContext.setFill(Color.BLACK);
         graphicsContext.fillRect(0, 0, canvas.getWidth(), canvas.getHeight());
         graphicsContext.setFill(Color.WHITE);
-//        snake.printSnake(graphicsContext);
+
+        Point[] points = {new Point(10, 20), new Point(10, 30), new Point(10, 40)};
+        snake = new Snake(Direction.DOWN, points);
+        snake.printSnake(graphicsContext);
+        snake.scoreCount(graphicsContext);
     }
 
     @FXML
@@ -46,52 +50,54 @@ public class HelloController {
 
         switch (keyEvent.getCode().toString()) {
             case "UP":
-                if (snake.getDirection()!=Direction.DOWN) {
+                if (snake!=null && snake.getDirection()!=Direction.DOWN) {
                     snake.setDirection(Direction.UP);
                 }
-                System.out.println("UP pressed");
+//                System.out.println("UP pressed");
                 keyEvent.consume();
                 break;
             case "LEFT":
-                if (snake.getDirection()!=Direction.RIGHT) {
+                if (snake!=null && snake.getDirection()!=Direction.RIGHT) {
                     snake.setDirection(Direction.LEFT);
                 }
-                System.out.println("LEFT pressed");
+//                System.out.println("LEFT pressed");
                 keyEvent.consume();
                 break;
             case "RIGHT":
-                if (snake.getDirection()!=Direction.LEFT) {
+                if (snake!=null && snake.getDirection()!=Direction.LEFT) {
                     snake.setDirection(Direction.RIGHT);
                 }
-                System.out.println("RIGHT pressed");
+//                System.out.println("RIGHT pressed");
                 keyEvent.consume();
                 break;
             case "DOWN":
-                if (snake.getDirection()!=Direction.UP) {
+                if (snake!=null && snake.getDirection()!=Direction.UP) {
                     snake.setDirection(Direction.DOWN);
                 }
-                System.out.println("DOWN pressed");
+//                System.out.println("DOWN pressed");
                 keyEvent.consume();
                 break;
         }
-        System.out.println("Snake is moving: " + snake.getDirection());
+//        System.out.println("Snake is moving: " + snake.getDirection());
     }
 
     public void buttonOnAction () {
         canvas.requestFocus();
-        snake = new Snake(Direction.DOWN, new Point(10, 30));
-//                , new Point(10, 20), new Point(10, 10), new Point(10, 0));
+        Point[] points = {new Point(10, 20), new Point(10, 30), new Point(10, 40)};
+        snake = new Snake(Direction.DOWN, points);
         clearCanvas();
 
         Runnable gameLoop = new Runnable() {
             @Override
             public void run() {
                 snake.generateFood(graphicsContext);
+                snake.scoreCount(graphicsContext);
                 do {
+                    snake.scoreCount(graphicsContext);
                     startButton.setDisable(true);
                     snake.printSnake(graphicsContext);
                     try {
-                        Thread.sleep(60);
+                        Thread.sleep(70);
                     } catch (InterruptedException e) {
                         e.printStackTrace();
                     }
@@ -99,10 +105,10 @@ public class HelloController {
                     if(snake.moveSnake()) {
                         snake.generateFood(graphicsContext);
                     }
+//                    snake.scoreCount(graphicsContext);
                 } while(!snake.isGameOver(graphicsContext));
                 startButton.setDisable(false);
                 snake.printSnake(graphicsContext);
-                snake.isGameOver(graphicsContext);
             }
         };
         new Thread(gameLoop).start();

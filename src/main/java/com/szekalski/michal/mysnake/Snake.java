@@ -11,13 +11,12 @@ public class Snake {
     private List<Point> snakeBody;
     private Point food;
 
-    public Snake(Direction direction, Point point/*, Point point2, Point point3, Point point4*/) {
+    public Snake(Direction direction, Point[] points) {
         this.direction = direction;
         snakeBody = new ArrayList<>();
-        snakeBody.add(point);
-//        snakeBody.add(point2);
-//        snakeBody.add(point3);
-//        snakeBody.add(point4);
+        for (Point p : points) {
+            snakeBody.add(p);
+        }
     }
 
     public Direction getDirection() {
@@ -29,7 +28,6 @@ public class Snake {
     }
 
     public boolean moveSnake () {
-//        System.out.println("snake is moving: " + direction);
         int x=0;
         int y=0;
 
@@ -67,8 +65,6 @@ public class Snake {
             snakeBody.get(snakeBody.size()-1).setPosY(snakeBody.get(snakeBody.size()-1).getPosY()+y);
             return false;
         }
-
-
     }
 
     public void printSnake (GraphicsContext graphicsContext) {
@@ -76,6 +72,8 @@ public class Snake {
             graphicsContext.setFill(Color.WHITE);
             graphicsContext.fillRect(p.getPosX(), p.getPosY(), 10, 10);
         }
+        graphicsContext.setFill(Color.RED);
+        graphicsContext.fillRect(snakeBody.get(snakeBody.size()-1).getPosX(), snakeBody.get(snakeBody.size()-1).getPosY(), 10, 10);
     }
 
     public boolean isGameOver(GraphicsContext graphicsContext) {
@@ -127,4 +125,16 @@ public class Snake {
             graphicsContext.fillRect(p.getPosX(), p.getPosY(), 10, 10);
         }
     }
+
+    public int scoreCount (GraphicsContext graphicsContext) {
+        graphicsContext.setStroke(Color.BLACK);
+        graphicsContext.setFont(new Font("Times New Roman", HelloApplication.WINDOW_LENGTH/25));
+        graphicsContext.strokeText(("Score:  " + (snakeBody.size()-4)*10), HelloApplication.WINDOW_LENGTH/25,HelloApplication.WINDOW_WIDTH-10);
+
+        graphicsContext.setStroke(Color.YELLOW);
+        graphicsContext.setFont(new Font("Times New Roman", HelloApplication.WINDOW_LENGTH/25));
+        graphicsContext.strokeText(("Score:  " + (snakeBody.size()-3)*10), HelloApplication.WINDOW_LENGTH/25,HelloApplication.WINDOW_WIDTH-10);
+        return snakeBody.size();
+    }
+
 }
