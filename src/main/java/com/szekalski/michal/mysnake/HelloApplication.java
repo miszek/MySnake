@@ -9,8 +9,8 @@ import java.io.IOException;
 
 public class HelloApplication extends Application {
 
-    public static final int WINDOW_LENGTH = 400;
-    public static final int WINDOW_WIDTH = 400;
+    public static final int WINDOW_LENGTH = 300;
+    public static final int WINDOW_WIDTH = 300;
 
     @Override
     public void start(Stage stage) throws IOException {

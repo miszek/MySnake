@@ -1,25 +1,23 @@
 package com.szekalski.michal.mysnake;
 
-import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.paint.Color;
+import javafx.scene.text.Font;
 
-import java.util.ArrayList;
-import java.util.Iterator;
-import java.util.List;
-import java.util.Random;
+import java.util.*;
 
 public class Snake {
-
     private Direction direction;
     private List<Point> snakeBody;
     private Point food;
 
-    public Snake(Direction direction, Point point, Point point2) {
+    public Snake(Direction direction, Point point/*, Point point2, Point point3, Point point4*/) {
         this.direction = direction;
         snakeBody = new ArrayList<>();
         snakeBody.add(point);
-        snakeBody.add(point2);
+//        snakeBody.add(point2);
+//        snakeBody.add(point3);
+//        snakeBody.add(point4);
     }
 
     public Direction getDirection() {
@@ -54,7 +52,6 @@ public class Snake {
                 break;
         }
 
-        //eating procedure
         Point nextPoint = new Point(snakeBody.get(snakeBody.size()-1).getPosX()+x,snakeBody.get(snakeBody.size()-1).getPosY()+y);
 
         if (nextPoint.equals(food)) {
@@ -74,12 +71,6 @@ public class Snake {
 
     }
 
-    public void eat (Point point) {
-//        if (snakeBody.contains(food)) {
-//            snakeBody.add()
-//        }
-    }
-
     public void printSnake (GraphicsContext graphicsContext) {
         for (Point p : snakeBody) {
             graphicsContext.setFill(Color.WHITE);
@@ -87,9 +78,29 @@ public class Snake {
         }
     }
 
-    public boolean gameOver () {
+    public boolean isGameOver(GraphicsContext graphicsContext) {
+        Set<Point> set = new HashSet<>(snakeBody);
+        if (set.size()!=snakeBody.size()) {
+            System.out.println("snake collision");
+            printGameOver(graphicsContext);
+            return true;
+        }
 
-        return true; //returns true if snake reached canvas borders or crossed itself
+        if(snakeBody.get(snakeBody.size()-1).getPosX()>=HelloApplication.WINDOW_LENGTH
+                || snakeBody.get(snakeBody.size()-1).getPosY()>=HelloApplication.WINDOW_WIDTH
+                || snakeBody.get(snakeBody.size()-1).getPosX()<0 || snakeBody.get(snakeBody.size()-1).getPosY()<0) {
+            System.out.println("snake out of canvas");
+            printGameOver(graphicsContext);
+            return true;
+        }
+
+        return false; //returns true if snake reached canvas borders or crossed itself
+    }
+
+    private void printGameOver(GraphicsContext graphicsContext) {
+        graphicsContext.setStroke(Color.RED);
+        graphicsContext.setFont(new Font("times new roman", HelloApplication.WINDOW_LENGTH/10));
+        graphicsContext.strokeText("GAME OVER", HelloApplication.WINDOW_LENGTH/5,HelloApplication.WINDOW_WIDTH/2);
     }
 
     public void generateFood (GraphicsContext graphicsContext) {

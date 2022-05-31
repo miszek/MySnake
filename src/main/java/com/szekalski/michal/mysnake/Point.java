@@ -26,6 +26,11 @@ public class Point {
     }
 
     @Override
+    public int hashCode() {
+        return posX+posY;
+    }
+
+    @Override
     public boolean equals(Object obj) {
         Point point1 = (Point) obj;
 

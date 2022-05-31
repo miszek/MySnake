@@ -12,7 +12,7 @@ import javafx.scene.paint.Color;
 
 public class HelloController {
 
-    Snake snake = new Snake(Direction.DOWN, new Point(10, 10), new Point(10,0));
+    Snake snake;
     GraphicsContext graphicsContext;
 
     @FXML
@@ -38,7 +38,7 @@ public class HelloController {
         graphicsContext.setFill(Color.BLACK);
         graphicsContext.fillRect(0, 0, canvas.getWidth(), canvas.getHeight());
         graphicsContext.setFill(Color.WHITE);
-        snake.printSnake(graphicsContext);
+//        snake.printSnake(graphicsContext);
     }
 
     @FXML
@@ -79,19 +79,19 @@ public class HelloController {
 
     public void buttonOnAction () {
         canvas.requestFocus();
+        snake = new Snake(Direction.DOWN, new Point(10, 30));
+//                , new Point(10, 20), new Point(10, 10), new Point(10, 0));
+        clearCanvas();
 
         Runnable gameLoop = new Runnable() {
             @Override
             public void run() {
                 snake.generateFood(graphicsContext);
-                for (int i = 0; i < 150; i++) {
-//                    System.out.println("game loop started " + i);
+                do {
                     startButton.setDisable(true);
-//                    clearCanvas();
                     snake.printSnake(graphicsContext);
-//                    snake.generateFood(graphicsContext);
                     try {
-                        Thread.sleep(70);
+                        Thread.sleep(60);
                     } catch (InterruptedException e) {
                         e.printStackTrace();
                     }
@@ -99,9 +99,10 @@ public class HelloController {
                     if(snake.moveSnake()) {
                         snake.generateFood(graphicsContext);
                     }
-                }
+                } while(!snake.isGameOver(graphicsContext));
                 startButton.setDisable(false);
                 snake.printSnake(graphicsContext);
+                snake.isGameOver(graphicsContext);
             }
         };
         new Thread(gameLoop).start();
