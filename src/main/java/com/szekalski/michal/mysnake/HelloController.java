@@ -10,10 +10,16 @@ import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 
+import java.io.IOException;
+import java.time.LocalDate;
+import java.util.HashSet;
+import java.util.Set;
+
 public class HelloController {
 
     Snake snake;
     GraphicsContext graphicsContext;
+    Set<HighScoreItem> scoreSet = new HashSet<>();
 
     @FXML
     private VBox vbox;
@@ -109,6 +115,13 @@ public class HelloController {
                 } while(!snake.isGameOver(graphicsContext));
                 startButton.setDisable(false);
                 snake.printSnake(graphicsContext);
+                scoreSet.add(new HighScoreItem(snake.scoreCount(graphicsContext), LocalDate.now()));
+                printScoreList();
+                try {
+                    HighScore.getInstance().saveHighScore(scoreSet);
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
             }
         };
         new Thread(gameLoop).start();
@@ -120,5 +133,10 @@ public class HelloController {
         graphicsContext.fillRect(0, 0, canvas.getWidth(), canvas.getHeight());
     }
 
+    public void printScoreList() {
+        for (HighScoreItem hsi : scoreSet) {
+            System.out.println(hsi.toString());
+        }
+    }
 
 }

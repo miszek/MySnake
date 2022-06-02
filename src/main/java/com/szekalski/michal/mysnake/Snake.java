@@ -134,7 +134,7 @@ public class Snake {
         graphicsContext.setStroke(Color.YELLOW);
         graphicsContext.setFont(new Font("Times New Roman", HelloApplication.WINDOW_LENGTH/25));
         graphicsContext.strokeText(("Score:  " + (snakeBody.size()-3)*10), HelloApplication.WINDOW_LENGTH/25,HelloApplication.WINDOW_WIDTH-10);
-        return snakeBody.size();
+        return (snakeBody.size()-3)*10;
     }
 
 }
